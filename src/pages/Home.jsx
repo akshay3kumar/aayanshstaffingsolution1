@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/home_back.jpeg';
 
 const Home = () => {
@@ -47,18 +48,18 @@ const Home = () => {
               Founded in 2025, Aayansh Staffing Solutions is a fast-growing manpower company supporting India's rapidly expanding delivery ecosystem.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="/contact"
+              <Link
+                to="/contact"
                 className="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200 shadow-lg text-center text-lg"
               >
                 Hire Staff Now
-              </a>
-              <a 
-                href="/careers"
+              </Link>
+              <Link
+                to="/careers"
                 className="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200 shadow-lg text-center text-lg"
               >
                 Apply for Jobs
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -160,12 +161,12 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center mt-10">
-            <a 
-              href="/services"
+            <Link
+              to="/services"
               className="bg-primary text-black px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg inline-block"
             >
               View All Services
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -195,13 +196,13 @@ const Home = () => {
             Speak with our staffing experts today and discover how we can help scale your operations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact"
+            <Link
+              to="/contact"
               className="bg-transparent border-2 border-white text-accent px-8 py-4 rounded-lg font-semibold hover:bg-orange-500 transition-colors duration-200 shadow-lg inline-block"
             >
               Request Talent
-            </a>
-            <a 
+            </Link>
+            <a
               href="tel:+918862992830"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-500 hover:text-accent transition-colors duration-200 inline-block"
             >

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   const services = [
@@ -128,13 +129,13 @@ const Services = () => {
             Let's discuss your staffing requirements and create a customized solution for your business
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact"
+            <Link
+              to="/contact"
               className="bg-trtansparent border-2 text-accent px-8 py-4 rounded-lg font-semibold hover:bg-orange-400 transition-colors duration-200 shadow-lg inline-block text-lg"
             >
               Get Staff Now
-            </a>
-            <a 
+            </Link>
+            <a
               href="tel:+918862992830"
               className="bg-trtansparent border-2 text-accent px-8 py-4 rounded-lg font-semibold hover:bg-orange-400 transition-colors duration-200 shadow-lg inline-block text-lg"
             >

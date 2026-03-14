@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   const values = [
@@ -162,12 +163,12 @@ const About = () => {
           <p className="text-xl mb-8 text-orange-100 max-w-2xl mx-auto">
             Let's discuss how we can help build your workforce and scale your operations
           </p>
-          <a 
-            href="/contact"
+          <Link
+            to="/contact"
             className="bg-trtansparent border-2 text-accent px-8 py-4 rounded-lg font-semibold hover:bg-orange-400 transition-colors duration-200 shadow-lg inline-block text-lg"
           >
             Get in Touch
-          </a>
+          </Link>
         </div>
       </section>
     </div>

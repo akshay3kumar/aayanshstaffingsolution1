@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +17,37 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    
+    // EmailJS configuration
+    // IMPORTANT: Replace these with your actual EmailJS credentials
+    const serviceId = 'YOUR_SERVICE_ID';
+    const templateId = 'YOUR_TEMPLATE_ID';
+    const publicKey = 'YOUR_PUBLIC_KEY';
+    
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject,
+      message: formData.message,
+      to_email: 'aayanshstaffings@gmail.com'
+    };
+
+    try {
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      alert('Thank you for your message! We have received your inquiry and will get back to you soon.');
+      
+      // Reset form
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      alert('Sorry, there was an error sending your message. Please try again or contact us directly at aayanshstaffings@gmail.com or call +91 88629 92830');
+    }
   };
 
   return (

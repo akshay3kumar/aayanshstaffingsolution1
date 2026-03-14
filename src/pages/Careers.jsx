@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Careers = () => {
   const [formData, setFormData] = useState({
@@ -13,25 +14,25 @@ const Careers = () => {
   const jobOpenings = [
     {
       title: 'Delivery Executive',
-      location: 'Delhi NCR',
+      location: 'All Locations',
       type: 'Full-time',
       icon: '🚴'
     },
     {
       title: 'Warehouse Associate',
-      location: 'Noida',
+      location: 'All Locations',
       type: 'Full-time',
       icon: '📦'
     },
     {
       title: 'Hub Staff',
-      location: 'Gurugram',
+      location: 'All Locations',
       type: 'Full-time',
       icon: '🏢'
     },
     {
       title: 'Operations Support',
-      location: 'Bihar',
+      location: 'All Locations',
       type: 'Full-time',
       icon: '⚙️'
     }
@@ -52,17 +53,49 @@ const Careers = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for applying! We will review your application and get back to you soon.');
-    setFormData({
-      fullName: '',
-      phone: '',
-      email: '',
-      city: '',
-      position: '',
-      resume: null
-    });
+    
+    // EmailJS configuration
+    // IMPORTANT: Replace these with your actual EmailJS credentials
+    const serviceId = 'YOUR_SERVICE_ID';
+    const templateId = 'YOUR_TEMPLATE_ID';
+    const publicKey = 'YOUR_PUBLIC_KEY';
+    
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.fullName,
+      from_email: formData.email,
+      phone: formData.phone,
+      city: formData.city,
+      position: formData.position,
+      to_email: 'aayanshstaffings@gmail.com',
+      message: `New job application received:\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCity: ${formData.city}\nPosition: ${formData.position}\n\nNote: Resume file was attached (file handling requires backend setup)`
+    };
+
+    try {
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      alert('Thank you for applying! We have received your application and will get back to you soon.');
+      
+      // Reset form
+      setFormData({
+        fullName: '',
+        phone: '',
+        email: '',
+        city: '',
+        position: '',
+        resume: null
+      });
+      
+      // Reset file input
+      const fileInput = document.getElementById('resume');
+      if (fileInput) fileInput.value = '';
+      
+    } catch (error) {
+      console.error('Failed to send application:', error);
+      alert('Sorry, there was an error submitting your application. Please try again or contact us directly at aayanshstaffings@gmail.com');
+    }
   };
 
   return (
@@ -93,12 +126,12 @@ const Careers = () => {
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{job.title}</h3>
                 <p className="text-gray-600 mb-1">📍 {job.location}</p>
                 <p className="text-gray-600 mb-4">⏰ {job.type}</p>
-                <button 
+                {/* <button 
                   onClick={() => setFormData({...formData, position: job.title})}
                   className="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
                 >
                   Apply Now
-                </button>
+                </button> */}
               </div>
             ))}
           </div>

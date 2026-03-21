@@ -16,7 +16,7 @@ const Header = () => {
               {/* Mobile: 3 lines, Desktop: 1 line */}
               <div className="font-bold text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {/* Mobile view - 3 lines */}
-                <div className="block md:hidden text-sm leading-tight">
+                <div className="block md:hidden text-lg leading-tight">
                   <div>AAYANSH</div>
                   <div>STAFFING</div>
                   <div>SOLUTIONS</div>

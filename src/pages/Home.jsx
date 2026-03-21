@@ -5,8 +5,8 @@ import ikeaLogo from '../assets/customer_logo/IKEA.jpeg';
 import bigbasketLogo from '../assets/customer_logo/BIGBASKET.png';
 import flipkartLogo from '../assets/customer_logo/FLIPKART.png';
 import amazonLogo from '../assets/customer_logo/AMAZON.jpeg';
-import supertailsLogo from '../assets/customer_logo/SUPERTAILS.PNG';
-import elasticrunLogo from '../assets/customer_logo/ELASTICRUN.PNG';
+import supertailsLogo from '../assets/customer_logo/SUPERTAILS.png';
+import elasticrunLogo from '../assets/customer_logo/ELASTICRUN.png';
 import IndiaMap from '../components/IndiaMap';
 
 const Home = () => {

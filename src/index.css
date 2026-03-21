@@ -1,3 +1,23 @@
 @import "tailwindcss";
 
+/* Prevent horizontal overflow on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
 
+/* Custom file input button styling */
+input[type="file"]::file-selector-button {
+  background-color: #005563;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: opacity 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  opacity: 0.9;
+}

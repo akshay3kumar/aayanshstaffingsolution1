@@ -1,10 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/home_back.jpeg';
+import ikeaLogo from '../assets/customer_logo/IKEA.jpeg';
+import bigbasketLogo from '../assets/customer_logo/BIGBASKET.png';
+import flipkartLogo from '../assets/customer_logo/FLIPKART.png';
+import amazonLogo from '../assets/customer_logo/AMAZON.jpeg';
+import supertailsLogo from '../assets/customer_logo/SUPERTAILS.PNG';
+import elasticrunLogo from '../assets/customer_logo/ELASTICRUN.PNG';
+import IndiaMap from '../components/IndiaMap';
 
 const Home = () => {
   const brands = [
-    'IKEA', 'BigBasket', 'Flipkart', 'Amazon', 'Swifter', 'Supertail', 'ElasticRun'
+    { name: 'IKEA', logo: ikeaLogo },
+    { name: 'BigBasket', logo: bigbasketLogo },
+    { name: 'Flipkart', logo: flipkartLogo },
+    { name: 'Amazon', logo: amazonLogo },
+    { name: 'Supertails', logo: supertailsLogo },
+    { name: 'ElasticRun', logo: elasticrunLogo }
   ];
 
   const impactStats = [
@@ -12,10 +24,6 @@ const Home = () => {
     { number: '7+', label: 'Major Brand Associations' },
     { number: '6+', label: 'Active Locations' },
     { number: '2025', label: 'Founded' }
-  ];
-
-  const locations = [
-    'Delhi NCR', 'Gurugram', 'Delhi', 'Noida', 'Dehradun', 'Bihar', 'Uttar Pradesh'
   ];
 
   return (
@@ -34,15 +42,15 @@ const Home = () => {
         />
         
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 z-[1]"></div>
+        <div className="absolute inset-0 z-[1]" style={{ backgroundImage: 'linear-gradient(to right, rgba(0, 85, 99, 0.8), rgba(0, 85, 99, 0.6))' }}></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-              Reliable Manpower. Scalable Solutions.
+              Reliable Staffing Solutions Across India.
             </h1>
             <p className="text-2xl md:text-3xl mb-4 text-gray-100 drop-shadow-md font-semibold">
-              Powering India's E-commerce, Quick Commerce & Logistics Industry with Fast, Scalable Workforce Deployment.
+              We help businesseshire skilled and unskilled workforce quickly with complete payroll and Compliance support.
             </p>
             <p className="text-xl mb-8 text-gray-200 drop-shadow-md">
               Founded in 2025, Aayansh Staffing Solutions is a fast-growing manpower company supporting India's rapidly expanding delivery ecosystem.
@@ -50,13 +58,14 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/contact"
-                className="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200 shadow-lg text-center text-lg"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors duration-200 inline-block"
+                
               >
                 Hire Staff Now
               </Link>
               <Link
                 to="/careers"
-                className="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200 shadow-lg text-center text-lg"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors duration-200 inline-block"
               >
                 Apply for Jobs
               </Link>
@@ -66,10 +75,10 @@ const Home = () => {
       </section>
 
       {/* About Snapshot */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, white, #e0f2f5)' }}>
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6 text-gray-800">About Aayansh Staffing Solutions</h2>
+            <h2 className="text-4xl font-bold mb-6" style={{ color: '#005563' }}>About Us</h2>
             <p className="text-xl text-gray-600 leading-relaxed mb-6">
               We specialize in high-volume recruitment, quick onboarding, and dependable workforce deployment 
               for leading logistics and e-commerce brands.
@@ -83,14 +92,14 @@ const Home = () => {
       </section>
 
       {/* Our Impact */}
-      <section className="py-16 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, #005563, #003d47)' }}>
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12 text-white">Our Impact</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {impactStats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-5xl md:text-6xl font-bold text-accent mb-2">{stat.number}</div>
-                <div className="text-lg text-white">{stat.label}</div>
+                <div className="text-5xl md:text-6xl font-bold text-white mb-2">{stat.number}</div>
+                <div className="text-lg text-gray-300">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -101,16 +110,27 @@ const Home = () => {
       </section>
 
       {/* Trusted By Leading Brands */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, #e0f2f5, white)' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Trusted By Leading Brands</h2>
+          <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#005563' }}>Trusted By Leading Brands</h2>
           <div className="flex flex-wrap justify-center items-center gap-8 max-w-5xl mx-auto">
             {brands.map((brand, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-gray-50 px-8 py-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border-2 border-gray-200"
+                className="h-20 w-auto flex items-center justify-center overflow-visible"
               >
-                <span className="text-2xl font-bold text-gray-700">{brand}</span>
+                <img
+                  src={brand.logo}
+                  alt={`${brand.name} logo`}
+                  className="h-20 w-auto object-contain transition-transform duration-300 hover:scale-110"
+                  style={{
+                    transform: brand.name === 'ElasticRun' || brand.name === 'Supertails' ? 'scale(2.5)' : 'scale(1)'
+                  }}
+                  onError={(e) => {
+                    console.error(`Failed to load ${brand.name} logo`);
+                    e.target.style.display = 'none';
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -118,14 +138,14 @@ const Home = () => {
       </section>
 
       {/* Services Preview */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, white, #e0f2f5)' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#005563' }}>
             Our Services
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {/* Service 1 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center">
+            <div className="bg-gradient-to-b from-white to-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center border border-gray-200">
               <div className="text-5xl mb-4">⚡</div>
               <h3 className="text-xl font-semibold mb-3 text-gray-800">Quick Commerce Staffing</h3>
               <p className="text-gray-600 mb-4">
@@ -134,7 +154,7 @@ const Home = () => {
             </div>
 
             {/* Service 2 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center">
+            <div className="bg-gradient-to-b from-white to-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center border border-gray-200">
               <div className="text-5xl mb-4">📦</div>
               <h3 className="text-xl font-semibold mb-3 text-gray-800">E-commerce & Warehouse</h3>
               <p className="text-gray-600 mb-4">
@@ -143,7 +163,7 @@ const Home = () => {
             </div>
 
             {/* Service 3 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center">
+            <div className="bg-gradient-to-b from-white to-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center border border-gray-200">
               <div className="text-5xl mb-4">👥</div>
               <h3 className="text-xl font-semibold mb-3 text-gray-800">Mass Hiring</h3>
               <p className="text-gray-600 mb-4">
@@ -152,7 +172,7 @@ const Home = () => {
             </div>
 
             {/* Service 4 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center">
+            <div className="bg-gradient-to-b from-white to-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 text-center border border-gray-200">
               <div className="text-5xl mb-4">📋</div>
               <h3 className="text-xl font-semibold mb-3 text-gray-800">Compliance & Documentation</h3>
               <p className="text-gray-600 mb-4">
@@ -163,7 +183,8 @@ const Home = () => {
           <div className="text-center mt-10">
             <Link
               to="/services"
-              className="bg-primary text-black px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg inline-block"
+              className="text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-colors duration-200 shadow-lg inline-block"
+              style={{ backgroundColor: '#005563' }}
             >
               View All Services
             </Link>
@@ -172,39 +193,32 @@ const Home = () => {
       </section>
 
       {/* Locations We Serve */}
-      <section className="py-16 bg-white">
+      <section className="py-20" style={{ backgroundImage: 'linear-gradient(to right, #e0f2f5, white)' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Locations We Serve</h2>
-          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-            {locations.map((location, index) => (
-              <div 
-                key={index}
-                className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300"
-              >
-                <span className="font-semibold">📍 {location}</span>
-              </div>
-            ))}
+          <h2 className="text-4xl font-bold text-center mb-16" style={{ color: '#005563' }}>Locations We Serve</h2>
+          <div className="mb-12">
+            <IndiaMap />
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 text-white py-16">
+      <section className="text-white py-16" style={{ backgroundImage: 'linear-gradient(to right, #005563, #003d47)' }}>
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Let's Build Your Workforce</h2>
-          <p className="text-xl mb-8 text-orange-100 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 text-gray-200 max-w-2xl mx-auto">
             Speak with our staffing experts today and discover how we can help scale your operations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="bg-transparent border-2 border-white text-accent px-8 py-4 rounded-lg font-semibold hover:bg-orange-500 transition-colors duration-200 shadow-lg inline-block"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors duration-200 inline-block"
             >
               Request Talent
             </Link>
             <a
               href="tel:+918862992830"
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-500 hover:text-accent transition-colors duration-200 inline-block"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors duration-200 inline-block"
             >
               Call: +91 88629 92830
             </a>

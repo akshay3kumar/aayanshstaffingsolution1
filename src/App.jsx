@@ -17,10 +17,10 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen overflow-x-hidden">
         <Header />
         <Navigation />
-        <main className="flex-grow">
+        <main className="flex-grow overflow-x-hidden">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

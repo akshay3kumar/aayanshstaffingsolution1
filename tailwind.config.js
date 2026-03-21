@@ -10,6 +10,7 @@ export default {
         primary: '#1E40AF', // Royal Blue
         secondary: '#1F2937', // Dark Grey
         accent: '#F97316', // Bright Orange
+        ocean: '#005563', // Dark Teal/Cyan
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],

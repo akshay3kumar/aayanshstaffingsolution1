@@ -11,6 +11,8 @@ const Careers = () => {
     resume: null
   });
 
+  const [phoneError, setPhoneError] = useState('');
+
   const jobOpenings = [
     {
       title: 'Delivery Executive',
@@ -40,10 +42,31 @@ const Careers = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    
+    // Special handling for phone number
+    if (name === 'phone') {
+      // Only allow digits
+      const digitsOnly = value.replace(/\D/g, '');
+      
+      // Validate: show error if non-digits were entered
+      if (value !== digitsOnly) {
+        setPhoneError('Only digits are allowed');
+      } else if (digitsOnly.length > 10) {
+        setPhoneError('Maximum 10 digits allowed');
+      } else {
+        setPhoneError('');
+      }
+      
+      setFormData({
+        ...formData,
+        [name]: digitsOnly.slice(0, 10) // Limit to 10 digits
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleFileChange = (e) => {
@@ -101,37 +124,31 @@ const Careers = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 text-white py-20">
+      <section className="text-white py-20" style={{ backgroundImage: 'linear-gradient(to right, #005563, #003d47)' }}>
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4">Join Our Team</h1>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Build your career with India's fastest-growing staffing solutions company
           </p>
         </div>
       </section>
 
       {/* Current Openings */}
-      <section className="py-16">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, white, #e0f2f5)' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#005563' }}>
             Current Openings
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
             {jobOpenings.map((job, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border border-gray-200"
               >
                 <div className="text-4xl mb-4">{job.icon}</div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{job.title}</h3>
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#005563' }}>{job.title}</h3>
                 <p className="text-gray-600 mb-1">📍 {job.location}</p>
                 <p className="text-gray-600 mb-4">⏰ {job.type}</p>
-                {/* <button 
-                  onClick={() => setFormData({...formData, position: job.title})}
-                  className="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
-                >
-                  Apply Now
-                </button> */}
               </div>
             ))}
           </div>
@@ -139,11 +156,11 @@ const Careers = () => {
       </section>
 
       {/* Application Form */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, #e0f2f5, white)' }}>
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <div className="bg-gray-50 rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">Apply Now</h2>
+            <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+              <h2 className="text-3xl font-bold mb-6 text-center" style={{ color: '#005563' }}>Apply Now</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -164,7 +181,7 @@ const Careers = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number *
+                      Phone Number * (10 digits)
                     </label>
                     <input
                       type="tel"
@@ -173,9 +190,19 @@ const Careers = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                      placeholder="+91 XXXXX XXXXX"
+                      pattern="[0-9]{10}"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 outline-none transition-all ${
+                        phoneError
+                          ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
+                          : 'border-gray-300 focus:ring-primary focus:border-transparent'
+                      }`}
+                      placeholder="10 digit mobile number"
                     />
+                    {phoneError && (
+                      <p className="mt-1 text-sm text-red-600 font-medium">
+                        {phoneError}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -252,14 +279,18 @@ const Careers = () => {
                     onChange={handleFileChange}
                     accept=".pdf,.doc,.docx"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary file:text-white file:cursor-pointer hover:file:bg-blue-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-white file:cursor-pointer hover:file:opacity-90"
+                    style={{
+                      '--tw-file-button-bg': '#005563'
+                    }}
                   />
                   <p className="text-sm text-gray-500 mt-2">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200 shadow-lg text-lg"
+                  className="w-full text-white py-4 rounded-lg font-semibold hover:opacity-90 transition-colors duration-200 shadow-lg text-lg"
+                  style={{ backgroundColor: '#005563' }}
                 >
                   Submit Application
                 </button>
@@ -270,29 +301,29 @@ const Careers = () => {
       </section>
 
       {/* Why Work With Us */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, white, #e0f2f5)' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#005563' }}>
             Why Work With Us?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center border border-gray-200">
               <div className="text-5xl mb-4">💼</div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">Career Growth</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#005563' }}>Career Growth</h3>
               <p className="text-gray-600">
                 Opportunities to grow and advance in India's booming logistics sector
               </p>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center border border-gray-200">
               <div className="text-5xl mb-4">🤝</div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">Top Brands</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#005563' }}>Top Brands</h3>
               <p className="text-gray-600">
                 Work with leading companies like IKEA, BigBasket, Flipkart, and Amazon
               </p>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div className="bg-white rounded-lg shadow-lg p-6 text-center border border-gray-200">
               <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">Fast Onboarding</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#005563' }}>Fast Onboarding</h3>
               <p className="text-gray-600">
                 Quick and smooth onboarding process to get you started immediately
               </p>

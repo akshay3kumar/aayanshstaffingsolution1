@@ -16,30 +16,13 @@ const Navigation = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-gradient-to-r from-gray-100 to-gray-200 shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.path)
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-blue-100 hover:text-blue-600'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Left Side */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-gray-700 hover:text-primary focus:outline-none"
+            className="md:hidden text-black hover:text-gray-700 focus:outline-none"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMobileMenuOpen ? (
@@ -50,11 +33,46 @@ const Navigation = () => {
             </svg>
           </button>
 
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  isActive(item.path)
+                    ? 'bg-white text-black shadow-md'
+                    : 'bg-black text-white hover:bg-gray-800'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Contact Info - Center/Right Side */}
+          <div className="md:hidden flex flex-col space-y-1">
+            <a
+              href="tel:+918862992830"
+              className="flex items-center text-gray-700 hover:text-black transition-colors text-sm"
+            >
+              <span className="mr-2">📞</span>
+              <span className="font-semibold">+91 88629 92830</span>
+            </a>
+            <a
+              href="mailto:aayanshstaffings@gmail.com"
+              className="flex items-center text-gray-700 hover:text-black transition-colors text-xs"
+            >
+              <span className="mr-2">📧</span>
+              <span className="font-medium">aayanshstaffings@gmail.com</span>
+            </a>
+          </div>
+
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="tel:+918862992830"
-              className="px-6 py-2 bg-orange-400 text-white rounded-md hover:bg-accent transition-colors duration-200 font-semibold shadow-md"
+              className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors duration-200 font-semibold shadow-md"
             >
               📞 Call Us
             </a>
@@ -63,17 +81,17 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t border-gray-300">
             <div className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive(item.path)
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-700 hover:bg-blue-100 hover:text-blue-600'
+                      ? 'bg-white text-black shadow-md'
+                      : 'bg-black text-white hover:bg-gray-800'
                   }`}
                 >
                   {item.label}
@@ -81,7 +99,7 @@ const Navigation = () => {
               ))}
               <a
                 href="tel:+918862992830"
-                className="px-3 py-2 bg-orange-400 text-white rounded-md hover:bg-accent transition-colors duration-200 font-semibold text-center"
+                className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors duration-200 font-semibold text-center"
               >
                 📞 Call Us
               </a>

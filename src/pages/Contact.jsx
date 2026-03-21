@@ -10,11 +10,35 @@ const Contact = () => {
     message: ''
   });
 
+  const [phoneError, setPhoneError] = useState('');
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    
+    // Special handling for phone number
+    if (name === 'phone') {
+      // Only allow digits
+      const digitsOnly = value.replace(/\D/g, '');
+      
+      // Validate: show error if non-digits were entered
+      if (value !== digitsOnly) {
+        setPhoneError('Only digits are allowed');
+      } else if (digitsOnly.length > 10) {
+        setPhoneError('Maximum 10 digits allowed');
+      }  else {
+        setPhoneError('');
+      }
+      
+      setFormData({
+        ...formData,
+        [name]: digitsOnly.slice(0, 10) // Limit to 10 digits
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -53,22 +77,22 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 text-white py-20">
+      <section className="text-white py-20" style={{ backgroundImage: 'linear-gradient(to right, #005563, #003d47)' }}>
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Let's Build Your Workforce Together
           </p>
         </div>
       </section>
 
       {/* Contact Content */}
-      <section className="py-16">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, white, #e0f2f5)' }}>
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-3xl font-bold mb-6 text-gray-800">Send us a Message</h2>
+            <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
+              <h2 className="text-3xl font-bold mb-6" style={{ color: '#005563' }}>Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -104,7 +128,7 @@ const Contact = () => {
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number *
+                    Phone Number * (10 digits)
                   </label>
                   <input
                     type="tel"
@@ -113,9 +137,19 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                    placeholder="+91 XXXXX XXXXX"
+                    pattern="[0-9]{10}"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 outline-none transition-all ${
+                      phoneError
+                        ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
+                        : 'border-gray-300 focus:ring-primary focus:border-transparent'
+                    }`}
+                    placeholder="10 digit mobile number"
                   />
+                  {phoneError && (
+                    <p className="mt-1 text-sm text-red-600 font-medium">
+                      {phoneError}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -152,7 +186,8 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-400 text-white py-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200 shadow-lg text-lg"
+                  className="w-full text-white py-4 rounded-lg font-semibold hover:opacity-90 transition-colors duration-200 shadow-lg text-lg"
+                  style={{ backgroundColor: '#005563' }}
                 >
                   Send Message
                 </button>
@@ -161,13 +196,13 @@ const Contact = () => {
 
             {/* Contact Information */}
             <div>
-              <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800">Get in Touch</h2>
+              <div className="bg-white rounded-lg shadow-lg p-8 mb-6 border border-gray-200">
+                <h2 className="text-3xl font-bold mb-6" style={{ color: '#005563' }}>Get in Touch</h2>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <div className="text-3xl text-primary">📍</div>
+                    <div className="text-3xl" style={{ color: '#005563' }}>📍</div>
                     <div>
-                      <h3 className="font-semibold text-lg text-gray-800 mb-2">Address</h3>
+                      <h3 className="font-semibold text-lg mb-2" style={{ color: '#005563' }}>Address</h3>
                       <p className="text-gray-600 text-lg">
                         69/140 Mirjanhat Road<br />
                         Bhagalpur, Bihar 812005<br />
@@ -177,12 +212,13 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="text-3xl text-primary">📧</div>
+                    <div className="text-3xl" style={{ color: '#005563' }}>📧</div>
                     <div>
-                      <h3 className="font-semibold text-lg text-gray-800 mb-2">Email</h3>
-                      <a 
+                      <h3 className="font-semibold text-lg mb-2" style={{ color: '#005563' }}>Email</h3>
+                      <a
                         href="mailto:aayanshstaffings@gmail.com"
-                        className="text-primary hover:text-blue-700 text-lg"
+                        className="text-lg hover:opacity-80"
+                        style={{ color: '#005563' }}
                       >
                         aayanshstaffings@gmail.com
                       </a>
@@ -190,12 +226,13 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="text-3xl text-primary">📞</div>
+                    <div className="text-3xl" style={{ color: '#005563' }}>📞</div>
                     <div>
-                      <h3 className="font-semibold text-lg text-gray-800 mb-2">Phone</h3>
-                      <a 
+                      <h3 className="font-semibold text-lg mb-2" style={{ color: '#005563' }}>Phone</h3>
+                      <a
                         href="tel:+918862992830"
-                        className="text-primary hover:text-blue-700 text-lg"
+                        className="text-lg hover:opacity-80"
+                        style={{ color: '#005563' }}
                       >
                         +91 88629 92830
                       </a>
@@ -203,9 +240,9 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="text-3xl text-primary">🕐</div>
+                    <div className="text-3xl" style={{ color: '#005563' }}>🕐</div>
                     <div>
-                      <h3 className="font-semibold text-lg text-gray-800 mb-2">Business Hours</h3>
+                      <h3 className="font-semibold text-lg mb-2" style={{ color: '#005563' }}>Business Hours</h3>
                       <p className="text-gray-600">Monday - Saturday: 9:00 AM - 7:00 PM</p>
                       <p className="text-gray-600">Sunday: 10:00 AM - 5:00 PM</p>
                     </div>
@@ -214,23 +251,23 @@ const Contact = () => {
               </div>
 
               {/* Quick Actions */}
-              <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 rounded-lg shadow-lg p-8 text-white">
+              <div className="rounded-lg shadow-lg p-8 text-white" style={{ backgroundImage: 'linear-gradient(to right, #005563, #003d47)' }}>
                 <h3 className="text-2xl font-bold mb-4">Speak With Our Staffing Experts Today</h3>
-                <p className="mb-6 text-blue-100">
+                <p className="mb-6 text-gray-300">
                   Get immediate assistance for your workforce requirements
                 </p>
                 <div className="space-y-3">
-                  <a 
+                  <a
                     href="tel:+918862992830"
-                    className="block w-full bg-blue-400 text-primary py-3 rounded-lg font-semibold hover:bg-orange-400 transition-colors duration-200 text-center"
+                    className="block w-full border-2 border-white text-white py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors duration-200 text-center"
                   >
                     📞 Call Now
                   </a>
-                  <a 
+                  <a
                     href="https://wa.me/918862992830"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors duration-200 text-center"
+                    className="block w-full border-2 border-white text-white py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors duration-200 text-center"
                   >
                     💬 WhatsApp Us
                   </a>
@@ -242,16 +279,17 @@ const Contact = () => {
       </section>
 
       {/* Locations Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{ backgroundImage: 'linear-gradient(to right, #e0f2f5, white)' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Service Locations</h2>
+          <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#005563' }}>Our Service Locations</h2>
           <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
             {['Delhi NCR', 'Gurugram', 'Delhi', 'Noida', 'Dehradun', 'Bihar', 'Uttar Pradesh'].map((location, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-gray-100 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 text-white"
+                style={{ backgroundColor: '#005563' }}
               >
-                <span className="font-semibold text-gray-700">📍 {location}</span>
+                <span className="font-semibold">📍 {location}</span>
               </div>
             ))}
           </div>
